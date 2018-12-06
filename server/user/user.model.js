@@ -14,12 +14,12 @@ const UserSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true,
-    match: [/^[1-9][0-9]{9}$/, 'Password must have greater than 7 characters at least 1 number and 1 symbol.']//I must hash this in
+    match: [/^[0-9][0-9]{9}$/, 'Password must have greater than 7 characters at least 1 number and 1 symbol.']//I must hash this in
   },
   mobileNumber: {
     type: String,
     required: true,
-    match: [/^[1-9][0-9]{9}$/, 'The value of path {PATH} ({VALUE}) is not a valid mobile number.']
+    match: [/^[0-9][0-9]{9}$/, 'The value of path {PATH} ({VALUE}) is not a valid mobile number.']
   },
   district: {
     type: String,

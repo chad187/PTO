@@ -76,7 +76,7 @@ describe('## User APIs', () => {
   describe('# PUT /api/users/:userId', () => {
     it('should update user details', (done) => {
       user.username = faker.name.findName();
-      user.mobileNumber = faker.phone.phoneNumberFormat().replace(/-/g, "")
+      user.mobileNumber = faker.phone.phoneNumberFormat().replace(/-/g, "");
       user.district = faker.company.companyName();
       user.school = faker.company.companyName();
       request(app)

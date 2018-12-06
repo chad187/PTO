@@ -17,7 +17,8 @@ function load(req, res, next, id) {
  * @returns {User}
  */
 function get(req, res) {
-  return res.json(req.user);
+  const {username, mobileNumber, district, school, _id} = req.user;
+  return res.json({username, mobileNumber, district, school, _id});
 }
 
 /**
@@ -36,7 +37,10 @@ function create(req, res, next) {
   });
 
   user.save()
-    .then(savedUser => res.json(savedUser))
+    .then(savedUser => {
+      const {username, mobileNumber, district, school, _id} = savedUser;
+      res.json({username, mobileNumber, district, school, _id});
+    })
     .catch(e => next(e));
 }
 
@@ -48,14 +52,18 @@ function create(req, res, next) {
  */
 function update(req, res, next) {
   const user = req.user;
-  user.username = req.body.username;
-  user.password = req.body.password;
-  user.mobileNumber = req.body.mobileNumber;
-  user.district = req.body.district;
-  user.school = req.body.school;
+  user.username = req.body.username ? req.body.username : req.user.username;
+  user.password = req.body.password ? req.body.password : req.user.password;
+  user.mobileNumber = req.body.mobileNumber ? req.body.mobileNumber : req.user.mobileNumber;
+  user.district = req.body.district ? req.body.district : req.user.district;
+  user.school = req.body.school ? req.body.school : req.user.school;
 
   user.save()
-    .then(savedUser => res.json(savedUser))
+    .then(savedUser => {
+      const {username, mobileNumber, district, school, _id} = savedUser;
+      // console.log({username, mobileNumber, district, school, _id});
+      res.json({username, mobileNumber, district, school, _id});
+    })
     .catch(e => next(e));
 }
 
