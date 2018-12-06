@@ -29,7 +29,10 @@ function get(req, res) {
 function create(req, res, next) {
   const user = new User({
     username: req.body.username,
-    mobileNumber: req.body.mobileNumber
+    password: req.body.password,
+    mobileNumber: req.body.mobileNumber,
+    district: req.body.district,
+    school: req.body.school
   });
 
   user.save()
@@ -46,7 +49,10 @@ function create(req, res, next) {
 function update(req, res, next) {
   const user = req.user;
   user.username = req.body.username;
+  user.password = req.body.password;
   user.mobileNumber = req.body.mobileNumber;
+  user.district = req.body.district;
+  user.school = req.body.school;
 
   user.save()
     .then(savedUser => res.json(savedUser))

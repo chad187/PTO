@@ -49,7 +49,10 @@ describe('## Misc', () => {
       request(app)
         .post('/api/users')
         .send({
-          mobileNumber: '1234567890'
+          mobileNumber: '1234567890',
+          district: "USD",
+          password: "1234567890",
+          school: "charter"
         })
         .expect(httpStatus.BAD_REQUEST)
         .then((res) => {

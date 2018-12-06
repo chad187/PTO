@@ -3,6 +3,7 @@ const request = require('supertest-as-promised');
 const httpStatus = require('http-status');
 const chai = require('chai'); // eslint-disable-line import/newline-after-import
 const expect = chai.expect;
+const faker = require('faker');
 const app = require('../../index');
 
 chai.config.includeStack = true;
@@ -20,8 +21,11 @@ after((done) => {
 
 describe('## User APIs', () => {
   let user = {
-    username: 'KK123',
-    mobileNumber: '1234567890'
+    username: faker.internet.userName(),
+    password: faker.phone.phoneNumberFormat().replace(/-/g, ""),//faker.internet.password(),
+    mobileNumber: faker.phone.phoneNumberFormat().replace(/-/g, ""),
+    district: faker.company.companyName(),
+    school: faker.company.companyName(),
   };
 
   describe('# POST /api/users', () => {
@@ -33,6 +37,8 @@ describe('## User APIs', () => {
         .then((res) => {
           expect(res.body.username).to.equal(user.username);
           expect(res.body.mobileNumber).to.equal(user.mobileNumber);
+          expect(res.body.district).to.equal(user.district);
+          expect(res.body.school).to.equal(user.school);
           user = res.body;
           done();
         })
@@ -48,6 +54,8 @@ describe('## User APIs', () => {
         .then((res) => {
           expect(res.body.username).to.equal(user.username);
           expect(res.body.mobileNumber).to.equal(user.mobileNumber);
+          expect(res.body.district).to.equal(user.district);
+          expect(res.body.school).to.equal(user.school);
           done();
         })
         .catch(done);
@@ -67,14 +75,19 @@ describe('## User APIs', () => {
 
   describe('# PUT /api/users/:userId', () => {
     it('should update user details', (done) => {
-      user.username = 'KK';
+      user.username = faker.name.findName();
+      user.mobileNumber = faker.phone.phoneNumberFormat().replace(/-/g, "")
+      user.district = faker.company.companyName();
+      user.school = faker.company.companyName();
       request(app)
         .put(`/api/users/${user._id}`)
         .send(user)
         .expect(httpStatus.OK)
         .then((res) => {
-          expect(res.body.username).to.equal('KK');
+          expect(res.body.username).to.equal(user.username);
           expect(res.body.mobileNumber).to.equal(user.mobileNumber);
+          expect(res.body.district).to.equal(user.district);
+          expect(res.body.school).to.equal(user.school);
           done();
         })
         .catch(done);
@@ -112,8 +125,10 @@ describe('## User APIs', () => {
         .delete(`/api/users/${user._id}`)
         .expect(httpStatus.OK)
         .then((res) => {
-          expect(res.body.username).to.equal('KK');
+          expect(res.body.username).to.equal(user.username);
           expect(res.body.mobileNumber).to.equal(user.mobileNumber);
+          expect(res.body.district).to.equal(user.district);
+          expect(res.body.school).to.equal(user.school);
           done();
         })
         .catch(done);

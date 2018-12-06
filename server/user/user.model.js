@@ -9,12 +9,25 @@ const APIError = require('../helpers/APIError');
 const UserSchema = new mongoose.Schema({
   username: {
     type: String,
-    required: true
+    required: true//need to add a match for min size and no spaces
+  },
+  password: {
+    type: String,
+    required: true,
+    match: [/^[1-9][0-9]{9}$/, 'Password must have greater than 7 characters at least 1 number and 1 symbol.']//I must hash this in
   },
   mobileNumber: {
     type: String,
     required: true,
     match: [/^[1-9][0-9]{9}$/, 'The value of path {PATH} ({VALUE}) is not a valid mobile number.']
+  },
+  district: {
+    type: String,
+    required: true
+  },
+  school: {
+    type: String,
+    required: true
   },
   createdAt: {
     type: Date,
