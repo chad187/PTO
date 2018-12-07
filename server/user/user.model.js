@@ -9,7 +9,7 @@ const APIError = require('../helpers/APIError');
 const UserSchema = new mongoose.Schema({
   username: {
     type: String,
-    required: true
+    required: true,
     match: [/^[a-zA-Z0-9.\-_$@*!]{3,30}$/, 'Username must have at least 3 characters']
   },
 

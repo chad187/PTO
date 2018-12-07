@@ -51,7 +51,7 @@ describe('## Misc', () => {
         .send({
           mobileNumber: '1234567890',
           district: "USD",
-          password: "1234567890",
+          password: "abcABC1!",
           school: "charter"
         })
         .expect(httpStatus.BAD_REQUEST)

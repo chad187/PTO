@@ -22,7 +22,7 @@ after((done) => {
 describe('## User APIs', () => {
   let user = {
     username: faker.internet.userName(),
-    password: faker.phone.phoneNumberFormat().replace(/-/g, ""),//faker.internet.password(),
+    password: faker.internet.password(),
     mobileNumber: faker.phone.phoneNumberFormat().replace(/-/g, ""),
     district: faker.company.companyName(),
     school: faker.company.companyName(),
@@ -75,7 +75,7 @@ describe('## User APIs', () => {
 
   describe('# PUT /api/users/:userId', () => {
     it('should update user details', (done) => {
-      user.username = faker.name.findName();
+      user.username = faker.internet.userName();
       user.mobileNumber = faker.phone.phoneNumberFormat().replace(/-/g, "");
       user.district = faker.company.companyName();
       user.school = faker.company.companyName();
