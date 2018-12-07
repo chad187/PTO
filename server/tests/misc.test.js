@@ -1,7 +1,7 @@
 const request = require('supertest-as-promised');
 const httpStatus = require('http-status');
 const chai = require('chai'); // eslint-disable-line import/newline-after-import
-const expect = chai.expect;
+const { expect } = chai;
 const app = require('../../index');
 
 chai.config.includeStack = true;
@@ -50,9 +50,9 @@ describe('## Misc', () => {
         .post('/api/users')
         .send({
           mobileNumber: '1234567890',
-          district: "USD",
-          password: "abcABC1!",
-          school: "charter"
+          district: 'USD',
+          password: 'abcABC1!',
+          school: 'charter'
         })
         .expect(httpStatus.BAD_REQUEST)
         .then((res) => {

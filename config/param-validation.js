@@ -17,7 +17,7 @@ module.exports = {
     body: {
       username: Joi.string().regex(/^[a-zA-Z0-9.\-_$@*!]{3,30}$/),
       password: Joi.string().regex(/^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})/),
-      mobileNumber: Joi.string().regex(/^[0-9][0-9]{9}$/),//might need to change first one back to [1-9]
+      mobileNumber: Joi.string().regex(/^[0-9][0-9]{9}$/), // might need to change first one back to [1-9]
       district: Joi.string(),
       school: Joi.string()
     },

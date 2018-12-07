@@ -16,7 +16,7 @@ const UserSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true,
-    match: [/^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})/, 'Password must have greater than 6 characters at least 1 number and 1 symbol.']//I must hash this in
+    match: [/^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})/, 'Password must have greater than 6 characters at least 1 number and 1 symbol.']
   },
   mobileNumber: {
     type: String,

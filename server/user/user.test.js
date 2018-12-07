@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const request = require('supertest-as-promised');
 const httpStatus = require('http-status');
 const chai = require('chai'); // eslint-disable-line import/newline-after-import
-const expect = chai.expect;
+const { expect } = chai;
 const faker = require('faker');
 const app = require('../../index');
 
@@ -23,7 +23,7 @@ describe('## User APIs', () => {
   let user = {
     username: faker.internet.userName(),
     password: faker.internet.password(),
-    mobileNumber: faker.phone.phoneNumberFormat().replace(/-/g, ""),
+    mobileNumber: faker.phone.phoneNumberFormat().replace(/-/g, ''),
     district: faker.company.companyName(),
     school: faker.company.companyName(),
   };
@@ -76,7 +76,7 @@ describe('## User APIs', () => {
   describe('# PUT /api/users/:userId', () => {
     it('should update user details', (done) => {
       user.username = faker.internet.userName();
-      user.mobileNumber = faker.phone.phoneNumberFormat().replace(/-/g, "");
+      user.mobileNumber = faker.phone.phoneNumberFormat().replace(/-/g, '');
       user.district = faker.company.companyName();
       user.school = faker.company.companyName();
       request(app)

@@ -17,14 +17,21 @@ function load(req, res, next, id) {
  * @returns {User}
  */
 function get(req, res) {
-  const {username, mobileNumber, district, school, _id} = req.user;
-  return res.json({username, mobileNumber, district, school, _id});
+  const {
+    username, mobileNumber, district, school, _id
+  } = req.user;
+  return res.json({
+    username, mobileNumber, district, school, _id
+  });
 }
 
 /**
  * Create new user
  * @property {string} req.body.username - The username of user.
  * @property {string} req.body.mobileNumber - The mobileNumber of user.
+ * @property {string} req.body.password - The password of user.
+ * @property {string} req.body.district - The district of user.
+ * @property {string} req.body.school - The school of user.
  * @returns {User}
  */
 function create(req, res, next) {
@@ -37,9 +44,13 @@ function create(req, res, next) {
   });
 
   user.save()
-    .then(savedUser => {
-      const {username, mobileNumber, district, school, _id} = savedUser;
-      res.json({username, mobileNumber, district, school, _id});
+    .then((savedUser) => {
+      const {
+        username, mobileNumber, district, school, _id
+      } = savedUser;
+      res.json({
+        username, mobileNumber, district, school, _id
+      });
     })
     .catch(e => next(e));
 }
@@ -48,10 +59,13 @@ function create(req, res, next) {
  * Update existing user
  * @property {string} req.body.username - The username of user.
  * @property {string} req.body.mobileNumber - The mobileNumber of user.
+ * @property {string} req.body.password - The password of user.
+ * @property {string} req.body.district - The district of user.
+ * @property {string} req.body.school - The school of user.
  * @returns {User}
  */
 function update(req, res, next) {
-  const user = req.user;
+  const { user } = req;
   user.username = req.body.username ? req.body.username : req.user.username;
   user.password = req.body.password ? req.body.password : req.user.password;
   user.mobileNumber = req.body.mobileNumber ? req.body.mobileNumber : req.user.mobileNumber;
@@ -59,10 +73,14 @@ function update(req, res, next) {
   user.school = req.body.school ? req.body.school : req.user.school;
 
   user.save()
-    .then(savedUser => {
-      const {username, mobileNumber, district, school, _id} = savedUser;
+    .then((savedUser) => {
+      const {
+        username, mobileNumber, district, school, _id
+      } = savedUser;
       // console.log({username, mobileNumber, district, school, _id});
-      res.json({username, mobileNumber, district, school, _id});
+      res.json({
+        username, mobileNumber, district, school, _id
+      });
     })
     .catch(e => next(e));
 }
@@ -85,10 +103,12 @@ function list(req, res, next) {
  * @returns {User}
  */
 function remove(req, res, next) {
-  const user = req.user;
+  const { user } = req;
   user.remove()
     .then(deletedUser => res.json(deletedUser))
     .catch(e => next(e));
 }
 
-module.exports = { load, get, create, update, list, remove };
+module.exports = {
+  load, get, create, update, list, remove
+};
