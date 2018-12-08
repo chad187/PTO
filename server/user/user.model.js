@@ -24,11 +24,13 @@ const UserSchema = new mongoose.Schema({
     match: [/^[0-9][0-9]{9}$/, 'The value of path {PATH} ({VALUE}) is not a valid mobile number.']
   },
   district: {
-    type: String,
+    type: Schema.Types.ObjectID,
+    ref: 'District',
     required: true
   },
   school: {
-    type: String,
+    type: Schema.Types.ObjectID
+    ref: 'School',
     required: true
   },
   createdAt: {
