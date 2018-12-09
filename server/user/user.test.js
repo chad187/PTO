@@ -5,6 +5,7 @@ const chai = require('chai'); // eslint-disable-line import/newline-after-import
 const { expect } = chai;
 const faker = require('faker');
 const app = require('../../index');
+let School = require('../school/school.model');
 
 chai.config.includeStack = true;
 
@@ -20,12 +21,20 @@ after((done) => {
 });
 
 describe('## User APIs', () => {
+  let postSchool = new Promise((resolve, reject) => {
+  let school = new School({ name: faker.name.lastName(), phone: faker.phone.phoneNumberFormat().replace(/-/g, ''), district: district , address: faker.address.streetAddress() });
+  user.save((err, user) => {
+    if (err) reject(err);
+    resolve(user);
+  });
+});
   let user = {
     username: faker.internet.userName(),
     password: faker.internet.password(),
     mobileNumber: faker.phone.phoneNumberFormat().replace(/-/g, ''),
-    district: faker.company.companyName(),
     school: faker.company.companyName(),
+    firstName: faker.name.firstName(),
+    lastName: faker.name.lastName()
   };
 
   describe('# POST /api/users', () => {
@@ -37,8 +46,9 @@ describe('## User APIs', () => {
         .then((res) => {
           expect(res.body.username).to.equal(user.username);
           expect(res.body.mobileNumber).to.equal(user.mobileNumber);
-          expect(res.body.district).to.equal(user.district);
+          expect(res.body.firstName).to.equal(user.firstName);
           expect(res.body.school).to.equal(user.school);
+          expect(res.body.lastName).to.equal(user.lastName);
           user = res.body;
           done();
         })
@@ -54,8 +64,9 @@ describe('## User APIs', () => {
         .then((res) => {
           expect(res.body.username).to.equal(user.username);
           expect(res.body.mobileNumber).to.equal(user.mobileNumber);
-          expect(res.body.district).to.equal(user.district);
           expect(res.body.school).to.equal(user.school);
+          expect(res.body.firstName).to.equal(user.firstName);
+          expect(res.body.lastName).to.equal(user.lastName);
           done();
         })
         .catch(done);
@@ -77,7 +88,6 @@ describe('## User APIs', () => {
     it('should update user details', (done) => {
       user.username = faker.internet.userName();
       user.mobileNumber = faker.phone.phoneNumberFormat().replace(/-/g, '');
-      user.district = faker.company.companyName();
       user.school = faker.company.companyName();
       request(app)
         .put(`/api/users/${user._id}`)
@@ -88,6 +98,8 @@ describe('## User APIs', () => {
           expect(res.body.mobileNumber).to.equal(user.mobileNumber);
           expect(res.body.district).to.equal(user.district);
           expect(res.body.school).to.equal(user.school);
+          expect(res.body.firstName).to.equal(user.firstName);
+          expect(res.body.lastName).to.equal(user.lastName);
           done();
         })
         .catch(done);
@@ -127,8 +139,9 @@ describe('## User APIs', () => {
         .then((res) => {
           expect(res.body.username).to.equal(user.username);
           expect(res.body.mobileNumber).to.equal(user.mobileNumber);
-          expect(res.body.district).to.equal(user.district);
           expect(res.body.school).to.equal(user.school);
+          expect(res.body.firstName).to.equal(user.firstName);
+          expect(res.body.lastName).to.equal(user.lastName);
           done();
         })
         .catch(done);

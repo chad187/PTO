@@ -26,6 +26,7 @@ function get(req, res) {
  * @property {string} req.body.phone - The phone of district.
  * @property {string} req.body.city - The city of district.
  * @property {string} req.body.address - The address of district.
+ * @property {string} req.body.state - The state of district.
  * @returns {District}
  */
 function create(req, res, next) {
@@ -33,7 +34,8 @@ function create(req, res, next) {
     name: req.body.name,
     phone: req.body.phone,
     address: req.body.address,
-    city: req.body.city
+    city: req.body.city,
+    state: req.body.state
   });
 
   district.save()
@@ -49,6 +51,7 @@ function create(req, res, next) {
  * @property {string} req.body.phone - The phone of district.
  * @property {string} req.body.city - The city of district.
  * @property {string} req.body.address - The address of district.
+ * @property {string} req.body.state - The state of district.
  * @returns {District}
  */
 function update(req, res, next) {
@@ -57,6 +60,7 @@ function update(req, res, next) {
   district.phone = req.body.phone ? req.body.phone : req.district.phone;
   district.city = req.body.city ? req.body.city : req.district.city;
   district.address = req.body.address ? req.body.address : req.district.address;
+  district.state = req.body.state ? req.body.state : req.district.state;
 
   district.save()
     .then((savedDistrict) => {

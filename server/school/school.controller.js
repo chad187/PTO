@@ -56,6 +56,7 @@ function update(req, res, next) {
   school.name = req.body.name ? req.body.name : req.school.name;
   school.address = req.body.address ? req.body.address : req.school.address;
   school.phone = req.body.phone ? req.body.phone : req.school.phone;
+  school.district = req.body.district ? req.body.district : req.school.district;
 
   school.save()
     .then((savedSchool) => {

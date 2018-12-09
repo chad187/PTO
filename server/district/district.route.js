@@ -17,7 +17,7 @@ router.route('/:districtId')
   .get(districtCtrl.get)
 
   /** PUT /api/districts/:districtId - Update district */
-  .put(validate(paramValidation.updatedistrict), districtCtrl.update)
+  .put(validate(paramValidation.updateDistrict), districtCtrl.update)
 
   /** DELETE /api/districts/:districtId - Delete district */
   .delete(districtCtrl.remove);

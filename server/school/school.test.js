@@ -21,10 +21,10 @@ after((done) => {
 
 describe('## School APIs', () => {
   let school = {
-    name: faker.internet.userName(),
+    name: faker.name.lastName(),
     phone: faker.phone.phoneNumberFormat().replace(/-/g, ''),
     district: faker.company.companyName(), // fix later
-    address: faker.company.companyName(),
+    address: faker.address.streetAddress(),
   };
 
   describe('# POST /api/schools', () => {
@@ -74,10 +74,9 @@ describe('## School APIs', () => {
 
   describe('# PUT /api/schools/:schoolId', () => {
     it('should update school details', (done) => {
-      school.name = faker.internet.userName(); // change
+      school.name = faker.name.lastName(); // change
       school.phone = faker.phone.phoneNumberFormat().replace(/-/g, '');
-      school.district = faker.company.companyName(); // change
-      school.address = faker.company.companyName(); // address
+      school.address = faker.address.streetAddress();
       request(app)
         .put(`/api/schools/${school._id}`)
         .send(school)

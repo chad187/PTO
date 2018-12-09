@@ -7,8 +7,9 @@ module.exports = {
       username: Joi.string().regex(/^[a-zA-Z0-9.\-_$@*!]{3,30}$/).required(),
       password: Joi.string().regex(/^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})/).required(),
       mobileNumber: Joi.string().regex(/^[0-9][0-9]{9}$/).required(),
-      district: Joi.string().required(),
-      school: Joi.string().required()
+      school: Joi.string().required(),
+      firstName: Joi.string().required(),
+      lastName: Joi.string().required()
     }
   },
 
@@ -18,11 +19,60 @@ module.exports = {
       username: Joi.string().regex(/^[a-zA-Z0-9.\-_$@*!]{3,30}$/),
       password: Joi.string().regex(/^(((?=.*[a-z])(?=.*[A-Z]))|((?=.*[a-z])(?=.*[0-9]))|((?=.*[A-Z])(?=.*[0-9])))(?=.{6,})/),
       mobileNumber: Joi.string().regex(/^[0-9][0-9]{9}$/), // might need to change first one back to [1-9]
-      district: Joi.string(),
       school: Joi.string()
+      firstName: Joi.string(),
+      lastName: Joi.string()
     },
     params: {
       userId: Joi.string().hex().required()
+    }
+  },
+
+  // POST /api/districts
+  createDistrict: {
+    body: {
+      name: Joi.string().regex(/^[a-zA-Z0-9.\-_$@*!]{3,30}$/).required(),
+      phone: Joi.string().regex(/^[0-9][0-9]{9}$/).required(),
+      city: Joi.string().required(),
+      address: Joi.string().required(),
+      state: Joi.string().required()
+    }
+  },
+
+  // UPDATE /api/districts/:districtId
+  updateDistrict: {
+    body: {
+      name: Joi.string().regex(/^[a-zA-Z0-9.\-_$@*!]{3,30}$/),
+      phone: Joi.string().regex(/^[0-9][0-9]{9}$/), // might need to change first one back to [1-9]
+      city: Joi.string(),
+      address: Joi.string(),
+      state: Joi.string()
+    },
+    params: {
+      districtId: Joi.string().hex().required()
+    }
+  },
+
+  // POST /api/schools
+  createSchool: {
+    body: {
+      name: Joi.string().regex(/^[a-zA-Z0-9.\-_$@*!]{3,30}$/).required(),
+      phone: Joi.string().regex(/^[0-9][0-9]{9}$/).required(),
+      address: Joi.string().required(),
+      district: Joi.string().required()
+    }
+  },
+
+  // UPDATE /api/schools/:schoolId
+  updateSchool: {
+    body: {
+      name: Joi.string().regex(/^[a-zA-Z0-9.\-_$@*!]{3,30}$/),
+      phone: Joi.string().regex(/^[0-9][0-9]{9}$/), // might need to change first one back to [1-9]
+      address: Joi.string(),
+      district: Joi.string()
+    },
+    params: {
+      schoolId: Joi.string().hex().required()
     }
   },
 

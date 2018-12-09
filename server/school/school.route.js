@@ -10,7 +10,7 @@ router.route('/')
   .get(schoolCtrl.list)
 
   /** POST /api/schools - Create new school */
-  .post(validate(paramValidation.createUser), schoolCtrl.create);
+  .post(validate(paramValidation.createSchool), schoolCtrl.create);
 
 router.route('/:schoolId')
   /** GET /api/schools/:schoolId - Get school */

@@ -17,12 +17,7 @@ function load(req, res, next, id) {
  * @returns {User}
  */
 function get(req, res) {
-  const {
-    username, mobileNumber, district, school, _id
-  } = req.user;
-  return res.json({
-    username, mobileNumber, district, school, _id
-  });
+  return res.json(req.user);
 }
 
 /**
@@ -30,8 +25,9 @@ function get(req, res) {
  * @property {string} req.body.username - The username of user.
  * @property {string} req.body.mobileNumber - The mobileNumber of user.
  * @property {string} req.body.password - The password of user.
- * @property {string} req.body.district - The district of user.
  * @property {string} req.body.school - The school of user.
+ * @property {string} req.body.firstName - The first name of user.
+ * @property {string} req.body.lastName - The last name of user.
  * @returns {User}
  */
 function create(req, res, next) {
@@ -39,18 +35,14 @@ function create(req, res, next) {
     username: req.body.username,
     password: req.body.password,
     mobileNumber: req.body.mobileNumber,
-    district: req.body.district,
-    school: req.body.school
+    school: req.body.school,
+    firstName: req.body.firstName,
+    lastName: req.body.lastName
   });
 
   user.save()
     .then((savedUser) => {
-      const {
-        username, mobileNumber, district, school, _id
-      } = savedUser;
-      res.json({
-        username, mobileNumber, district, school, _id
-      });
+      res.json(savedUser);
     })
     .catch(e => next(e));
 }
@@ -60,8 +52,9 @@ function create(req, res, next) {
  * @property {string} req.body.username - The username of user.
  * @property {string} req.body.mobileNumber - The mobileNumber of user.
  * @property {string} req.body.password - The password of user.
- * @property {string} req.body.district - The district of user.
  * @property {string} req.body.school - The school of user.
+ * @property {string} req.body.firstName - The first name of user.
+ * @property {string} req.body.lastName - The last name of user.
  * @returns {User}
  */
 function update(req, res, next) {
@@ -69,18 +62,13 @@ function update(req, res, next) {
   user.username = req.body.username ? req.body.username : req.user.username;
   user.password = req.body.password ? req.body.password : req.user.password;
   user.mobileNumber = req.body.mobileNumber ? req.body.mobileNumber : req.user.mobileNumber;
-  user.district = req.body.district ? req.body.district : req.user.district;
   user.school = req.body.school ? req.body.school : req.user.school;
+  user.firstName = req.body.firstName ? req.body.firstName : req.user.firstName;
+  user.lastName = req.body.lastName ? req.body.lastName : req.user.lastName;
 
   user.save()
     .then((savedUser) => {
-      const {
-        username, mobileNumber, district, school, _id
-      } = savedUser;
-      // console.log({username, mobileNumber, district, school, _id});
-      res.json({
-        username, mobileNumber, district, school, _id
-      });
+      res.json(savedUser);
     })
     .catch(e => next(e));
 }
