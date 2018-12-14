@@ -1,4 +1,5 @@
 const School = require('./school.model');
+const District = require('../district/district.model');
 
 /**
  * Load school and append to req.
@@ -35,10 +36,13 @@ function create(req, res, next) {
     phone: req.body.phone,
     district: req.body.district
   });
-
-  school.save()
-    .then((savedSchool) => {
-      res.json(savedSchool);
+  District.get(school.district)
+    .then(() => {
+      school.save()
+        .then((savedSchool) => {
+          res.json(savedSchool);
+        })
+        .catch(e => next(e));
     })
     .catch(e => next(e));
 }
@@ -57,10 +61,13 @@ function update(req, res, next) {
   school.address = req.body.address ? req.body.address : req.school.address;
   school.phone = req.body.phone ? req.body.phone : req.school.phone;
   school.district = req.body.district ? req.body.district : req.school.district;
-
-  school.save()
-    .then((savedSchool) => {
-      res.json(savedSchool);
+  District.get(school.district)
+    .then(() => {
+      school.save()
+        .then((savedSchool) => {
+          res.json(savedSchool);
+        })
+        .catch(e => next(e));
     })
     .catch(e => next(e));
 }

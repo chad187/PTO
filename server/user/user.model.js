@@ -10,6 +10,7 @@ const UserSchema = new mongoose.Schema({
   username: {
     type: String,
     required: true,
+    unique: true,
     match: [/^[a-zA-Z0-9.\-_$@*!]{3,30}$/, 'Username must have at least 3 characters']
   },
   firstName: {
@@ -28,12 +29,24 @@ const UserSchema = new mongoose.Schema({
   mobileNumber: {
     type: String,
     required: true,
+    unique: true,
     match: [/^[0-9][0-9]{9}$/, 'The value of path {PATH} ({VALUE}) is not a valid mobile number.']
   },
   school: {
-    type: Schema.Types.ObjectID
+    type: mongoose.Schema.Types.ObjectId,
     ref: 'School',
     required: true
+  },
+  isDeleted: {
+    type: Boolean,
+    default: false,
+    required: true
+  },
+  email: {
+    type: String,
+    requireed: true,
+    unique: true,
+    match: [/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/]
   },
   createdAt: {
     type: Date,

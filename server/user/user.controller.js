@@ -1,4 +1,5 @@
 const User = require('./user.model');
+const School = require('../school/school.model');
 
 /**
  * Load user and append to req.
@@ -28,23 +29,51 @@ function get(req, res) {
  * @property {string} req.body.school - The school of user.
  * @property {string} req.body.firstName - The first name of user.
  * @property {string} req.body.lastName - The last name of user.
+ * @property {string} req.body.email - The email of user.
  * @returns {User}
  */
 function create(req, res, next) {
-  const user = new User({
-    username: req.body.username,
-    password: req.body.password,
-    mobileNumber: req.body.mobileNumber,
-    school: req.body.school,
-    firstName: req.body.firstName,
-    lastName: req.body.lastName
-  });
-
-  user.save()
-    .then((savedUser) => {
-      res.json(savedUser);
+  const {
+    username,
+    password,
+    mobileNumber,
+    school,
+    firstName,
+    lastName,
+    email
+  } = req.body;
+  School.get(school)
+    .then(() => {
+      User.findOne({ email }, (err, dbUser) => {
+        if (err) next(err);
+        if (dbUser && dbUser.isDeleted) {
+          const user = dbUser;
+          user.isDeleted = false;
+          user.save((error, savedUser) => {
+            if (error) next(error);
+            res.json({
+              success: true,
+              revived: true,
+              savedUser
+            });
+          });
+        }
+        const user = new User({
+          username,
+          password,
+          mobileNumber,
+          school,
+          firstName,
+          lastName,
+          email
+        });
+        user.save((error, savedUser) => {
+          if (error) next(error);
+          res.json(savedUser);
+        });
+      });
     })
-    .catch(e => next(e));
+    .catch(err => next(err));
 }
 
 /**
@@ -59,18 +88,24 @@ function create(req, res, next) {
  */
 function update(req, res, next) {
   const { user } = req;
-  user.username = req.body.username ? req.body.username : req.user.username;
-  user.password = req.body.password ? req.body.password : req.user.password;
-  user.mobileNumber = req.body.mobileNumber ? req.body.mobileNumber : req.user.mobileNumber;
-  user.school = req.body.school ? req.body.school : req.user.school;
-  user.firstName = req.body.firstName ? req.body.firstName : req.user.firstName;
-  user.lastName = req.body.lastName ? req.body.lastName : req.user.lastName;
-
-  user.save()
-    .then((savedUser) => {
-      res.json(savedUser);
-    })
-    .catch(e => next(e));
+  user.username = req.body.username ? req.body.username : user.username;
+  user.password = req.body.password ? req.body.password : user.password;
+  user.mobileNumber = req.body.mobileNumber ? req.body.mobileNumber : user.mobileNumber;
+  user.school = req.body.school ? req.body.school : user.school;
+  user.firstName = req.body.firstName ? req.body.firstName : user.firstName;
+  user.lastName = req.body.lastName ? req.body.lastName : user.lastName;
+  user.email = req.body.email ? req.body.email : user.email;
+  if (req.body.school) {
+    School.get(req.body.school)
+      .then(() => {
+        user.save()
+          .then((savedUser) => {
+            res.json(savedUser);
+          })
+          .catch(e => next(e));
+      })
+      .catch(err => next(err));
+  }
 }
 
 /**
@@ -92,8 +127,11 @@ function list(req, res, next) {
  */
 function remove(req, res, next) {
   const { user } = req;
-  user.remove()
-    .then(deletedUser => res.json(deletedUser))
+  user.isDeleted = true;
+  user.save()
+    .then((savedUser) => {
+      res.json(savedUser);
+    })
     .catch(e => next(e));
 }
 

@@ -20,13 +20,17 @@ after((done) => {
 });
 
 describe('## District APIs', () => {
-  let district = {
-    name: faker.name.lastName(),
-    phone: faker.phone.phoneNumberFormat().replace(/-/g, ''),
-    city: faker.address.city(),
-    address: faker.address.streetAddress(),
-    state: faker.address.state()
-  };
+  let district;
+  before((done) => {
+    district = {
+      name: faker.name.lastName(),
+      phone: faker.phone.phoneNumberFormat().replace(/-/g, ''),
+      city: faker.address.city(),
+      address: faker.address.streetAddress(),
+      state: faker.address.state()
+    };
+    done();
+  });
 
   describe('# POST /api/districts', () => {
     it('should create a new district', (done) => {

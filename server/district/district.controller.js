@@ -38,11 +38,10 @@ function create(req, res, next) {
     state: req.body.state
   });
 
-  district.save()
-    .then((savedDistrict) => {
-      res.json(savedDistrict);
-    })
-    .catch(e => next(e));
+  district.save((error, savedDistrict) => {
+    if (error) next(error);
+    res.json(savedDistrict);
+  });
 }
 
 /**

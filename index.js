@@ -14,6 +14,7 @@ mongoose.Promise = Promise;
 
 // connect to mongo db
 const mongoUri = config.mongo.host;
+mongoose.set('useCreateIndex', true);
 mongoose.connect(mongoUri, { keepAlive: 1, useNewUrlParser: true });
 mongoose.connection.on('error', () => {
   throw new Error(`unable to connect to database: ${mongoUri}`);

@@ -5,6 +5,7 @@ const chai = require('chai'); // eslint-disable-line import/newline-after-import
 const { expect } = chai;
 const faker = require('faker');
 const app = require('../../index');
+const { postDistrict } = require('../helpers/TestMethods');
 
 chai.config.includeStack = true;
 
@@ -23,9 +24,16 @@ describe('## School APIs', () => {
   let school = {
     name: faker.name.lastName(),
     phone: faker.phone.phoneNumberFormat().replace(/-/g, ''),
-    district: faker.company.companyName(), // fix later
     address: faker.address.streetAddress(),
+    district: null
   };
+  before((done) => {
+    postDistrict
+      .then((result) => {
+        school.district = result._id;
+        done();
+      });
+  });
 
   describe('# POST /api/schools', () => {
     it('should create a new school', (done) => {
@@ -36,7 +44,7 @@ describe('## School APIs', () => {
         .then((res) => {
           expect(res.body.name).to.equal(school.name);
           expect(res.body.phone).to.equal(school.phone);
-          expect(res.body.district).to.equal(school.district);
+          expect(res.body.district).to.equal(String(school.district));
           expect(res.body.address).to.equal(school.address);
           school = res.body;
           done();
@@ -72,9 +80,26 @@ describe('## School APIs', () => {
     });
   });
 
+  describe('# PUT /api/schools/:scholId', () => {
+    it('should fail to update school details', (done) => {
+      const tempDistrict = school.district;
+      school.district = '56c787ccc67fc16ccc1a5e92';
+      request(app)
+        .put(`/api/schools/${school._id}`)
+        .send(school)
+        .expect(httpStatus.NOT_FOUND)
+        .then((res) => {
+          expect(res.body.message).to.equal('Not Found');
+          school.district = tempDistrict;
+          done();
+        })
+        .catch(done);
+    });
+  });
+
   describe('# PUT /api/schools/:schoolId', () => {
     it('should update school details', (done) => {
-      school.name = faker.name.lastName(); // change
+      school.name = faker.name.lastName();
       school.phone = faker.phone.phoneNumberFormat().replace(/-/g, '');
       school.address = faker.address.streetAddress();
       request(app)
@@ -86,6 +111,7 @@ describe('## School APIs', () => {
           expect(res.body.phone).to.equal(school.phone);
           expect(res.body.district).to.equal(school.district);
           expect(res.body.address).to.equal(school.address);
+          school = res.body;
           done();
         })
         .catch(done);

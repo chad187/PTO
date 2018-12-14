@@ -10,15 +10,16 @@ const SchoolSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
-    match: [/^[a-zA-Z0-9.\-_$@*!]{3,30}$/, 'Name must have at least 3 characters']
+    match: [/^.{3,}$/, 'Name must have at least 3 characters']
   },
   phone: {
     type: String,
     required: true,
+    unique: true,
     match: [/^[0-9][0-9]{9}$/, 'The value of path {PATH} ({VALUE}) is not a valid phone number.']
   },
   district: {
-    type: Schema.Types.ObjectID,
+    type: mongoose.Schema.Types.ObjectId,
     ref: 'District',
     required: true
   },
@@ -82,6 +83,6 @@ SchoolSchema.statics = {
 };
 
 /**
- * @typedef User
+ * @typedef School
  */
 module.exports = mongoose.model('School', SchoolSchema);
