@@ -15,8 +15,8 @@ after((done) => {
   // required because https://github.com/Automattic/mongoose/issues/1251#issuecomment-65793092
   mongoose.models = {};
   mongoose.modelSchemas = {};
-  mongoose.connection.close();
-  done();
+  mongoose.connection.db.dropDatabase(done);
+  // mongoose.connection.close();
 });
 
 describe('## District APIs', () => {

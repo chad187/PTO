@@ -1,3 +1,4 @@
+// const { MongoMemoryServer } = require('mongodb-memory-server');
 const mongoose = require('mongoose');
 const util = require('util');
 
@@ -11,14 +12,40 @@ Promise = require('bluebird'); // eslint-disable-line no-global-assign
 
 // plugin bluebird promise in mongoose
 mongoose.Promise = Promise;
-
-// connect to mongo db
-const mongoUri = config.mongo.host;
 mongoose.set('useCreateIndex', true);
+const mongoUri = config.mongo.host;
+// console.log(mongoUri);
+
+// connect to real mongo db
 mongoose.connect(mongoUri, { keepAlive: 1, useNewUrlParser: true });
 mongoose.connection.on('error', () => {
   throw new Error(`unable to connect to database: ${mongoUri}`);
 });
+
+// connect to mock mongo db
+// const mongoServer = new MongoMemoryServer();
+
+// mongoServer.getConnectionString().then((mongoUri) => {
+//   const mongooseOpts = { // options for mongoose 4.11.3 and above
+//     autoReconnect: true,
+//     reconnectTries: Number.MAX_VALUE,
+//     reconnectInterval: 1000,
+//   };
+
+//   mongoose.connect(mongoUri, mongooseOpts, { keepAlive: 1, useNewUrlParser: true });
+
+//   mongoose.connection.on('error', (e) => {
+//     if (e.message.code === 'ETIMEDOUT') {
+//       console.log(e);
+//       mongoose.connect(mongoUri, mongooseOpts);
+//     }
+//     console.log(e);
+//   });
+
+//   mongoose.connection.once('open', () => {
+//     console.log(`MongoDB successfully connected to ${mongoUri}`);
+//   });
+// });
 
 // print mongoose logs in dev env
 if (config.mongooseDebug) {
