@@ -1,4 +1,4 @@
-// const { MongoMemoryServer } = require('mongodb-memory-server');
+const { MongoMemoryServer } = require('mongodb-memory-server');
 const mongoose = require('mongoose');
 const util = require('util');
 
@@ -16,36 +16,40 @@ mongoose.set('useCreateIndex', true);
 const mongoUri = config.mongo.host;
 // console.log(mongoUri);
 
+const realDB = true;
+
+if (realDB) {
 // connect to real mongo db
-mongoose.connect(mongoUri, { keepAlive: 1, useNewUrlParser: true });
-mongoose.connection.on('error', () => {
-  throw new Error(`unable to connect to database: ${mongoUri}`);
-});
+  mongoose.connect(mongoUri, { keepAlive: 1, useNewUrlParser: true });
+  mongoose.connection.on('error', () => {
+    throw new Error(`unable to connect to database: ${mongoUri}`);
+  });
+} else {
+  // connect to mock mongo db
+  const mongoServer = new MongoMemoryServer();
 
-// connect to mock mongo db
-// const mongoServer = new MongoMemoryServer();
+  mongoServer.getConnectionString().then((mongoUriReturned) => {
+    const mongooseOpts = { // options for mongoose 4.11.3 and above
+      autoReconnect: true,
+      reconnectTries: Number.MAX_VALUE,
+      reconnectInterval: 1000,
+    };
 
-// mongoServer.getConnectionString().then((mongoUri) => {
-//   const mongooseOpts = { // options for mongoose 4.11.3 and above
-//     autoReconnect: true,
-//     reconnectTries: Number.MAX_VALUE,
-//     reconnectInterval: 1000,
-//   };
+    mongoose.connect(mongoUriReturned, { keepAlive: 1, useNewUrlParser: true });
 
-//   mongoose.connect(mongoUri, mongooseOpts, { keepAlive: 1, useNewUrlParser: true });
+    mongoose.connection.on('error', (e) => {
+      if (e.message.code === 'ETIMEDOUT') {
+        console.log(e);
+        mongoose.connect(mongoUriReturned, mongooseOpts);
+      }
+      console.log(e);
+    });
 
-//   mongoose.connection.on('error', (e) => {
-//     if (e.message.code === 'ETIMEDOUT') {
-//       console.log(e);
-//       mongoose.connect(mongoUri, mongooseOpts);
-//     }
-//     console.log(e);
-//   });
-
-//   mongoose.connection.once('open', () => {
-//     console.log(`MongoDB successfully connected to ${mongoUri}`);
-//   });
-// });
+    mongoose.connection.once('open', () => {
+      console.log(`MongoDB successfully connected to ${mongoUriReturned}`);
+    });
+  });
+}
 
 // print mongoose logs in dev env
 if (config.mongooseDebug) {
