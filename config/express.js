@@ -13,6 +13,8 @@ const winstonInstance = require('./winston');
 const routes = require('../index.route');
 const config = require('./config');
 const APIError = require('../server/helpers/APIError');
+const express_graphql = require('express-graphql');
+const {schema, root} = require('../server/graphQL/schemas/user.model');
 
 const app = express();
 
@@ -30,6 +32,12 @@ app.use(methodOverride());
 
 // secure apps by setting various HTTP headers
 app.use(helmet());
+
+app.use('/graphql', express_graphql({
+    schema: schema,
+    rootValue: root,
+    graphiql: true
+}));
 
 // enable CORS - Cross Origin Resource Sharing
 app.use(cors());
