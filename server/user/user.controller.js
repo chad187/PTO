@@ -105,6 +105,12 @@ function update(req, res, next) {
           .catch(e => next(e));
       })
       .catch(err => next(err));
+  } else {
+    user.save()
+      .then((savedUser) => {
+        res.json(savedUser);
+      })
+      .catch(e => next(e));
   }
 }
 

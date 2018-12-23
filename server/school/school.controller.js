@@ -61,15 +61,23 @@ function update(req, res, next) {
   school.address = req.body.address ? req.body.address : req.school.address;
   school.phone = req.body.phone ? req.body.phone : req.school.phone;
   school.district = req.body.district ? req.body.district : req.school.district;
-  District.get(school.district)
-    .then(() => {
-      school.save()
-        .then((savedSchool) => {
-          res.json(savedSchool);
-        })
-        .catch(e => next(e));
-    })
-    .catch(e => next(e));
+  if (req.body.district) {
+    District.get(req.body.district)
+      .then(() => {
+        school.save()
+          .then((savedSchool) => {
+            res.json(savedSchool);
+          })
+          .catch(e => next(e));
+      })
+      .catch(e => next(e));
+  } else {
+    school.save()
+      .then((savedSchool) => {
+        res.json(savedSchool);
+      })
+      .catch(e => next(e));
+  }
 }
 
 /**
