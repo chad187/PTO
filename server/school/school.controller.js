@@ -100,7 +100,10 @@ function list(req, res, next) {
 function remove(req, res, next) {
   const { school } = req;
   school.remove()
-    .then(deletedSchool => res.json(deletedSchool))
+    .then(deletedSchool => res.json({
+      deleted: true,
+      deletedSchool
+    }))
     .catch(e => next(e));
 }
 

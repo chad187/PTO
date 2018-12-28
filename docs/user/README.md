@@ -1,30 +1,45 @@
 # User API Docs
 
-[User](../../../server/user/user.controller)
+[User](/server/user/user.controller)
 
 ### Get All Users
-<kbd>GET</kbd> `/api/users`
+<kbd>GET</kbd> `api/users?limit=2&skip=1`
 
 Query Params:
 ```
+limit: (number) Maximum number of results to return
+skip: (number) Skip the first N results
 ```
 
 Sample Response
 ```
 [
-  {
-    "isDeleted": false,
-    "_id": "5c1ea44ade4a18002476f3d9",
-    "username": "SandraLakinMD",
-    "password": "997.093.5873 x44286",
-    "mobileNumber": "3295379549",
-    "school": "5c1ea2dede4a18002476f3d8",
-    "firstName": "Bins Inc",
-    "lastName": "pooper",
-    "email": "jj@jj.com",
-    "createdAt": "2018-12-22T20:53:30.295Z",
-    "__v": 0
-  }
+    {
+        "isDeleted": true,
+        "_id": "5c2020d0ad707b36741f9eeb",
+        "username": "Zechariah_Oberbrunner",
+        "password": "VaQbkTTF6jbD8L8",
+        "mobileNumber": "3984297875",
+        "school": "5c2020d0ad707b36741f9eea",
+        "firstName": "Bud",
+        "lastName": "Murazik",
+        "email": "Donnie_Feest72@gmail.com",
+        "createdAt": "2018-12-23T23:57:04.710Z",
+        "__v": 0
+    },
+    {
+        "isDeleted": true,
+        "_id": "5c2020986bd5cc0f40390328",
+        "username": "Raymond.Farrell83",
+        "password": "EstgpW1f_npZTDd",
+        "mobileNumber": "6244582154",
+        "school": "5c2020986bd5cc0f40390327",
+        "firstName": "Mayra",
+        "lastName": "Farrell",
+        "email": "Alex_Rogahn36@yahoo.com",
+        "createdAt": "2018-12-23T23:56:08.815Z",
+        "__v": 0
+    }
 ]
 ```
 <hr/>
@@ -70,8 +85,8 @@ Sample Success Response:
 Sample Failure Response:
 ```
 {
-    "message": "Internal Server Error",
-    "stack": {}
+    "message": "\"mobileNumber\" with value \"452336683\" fails to match the required pattern: /^[0-9][0-9]{9}$/",
+    "stack": "APIError: \"mobileNumber\" with value \"452336683\" fails to match the required pattern: ...
 }
 ```
 <hr/>
@@ -105,7 +120,7 @@ Sample Failure Response:
 ```
 {
     "message": "Not Found",
-    "stack": {}
+    "stack": "APIError: No such user exists!\n    at new ExtendableError (...
 }
 ```
 <hr/>
@@ -146,7 +161,7 @@ Sample Failure Response:
 ```
 {
     "message": "Not Found",
-    "stack": "APIError: No such user exists!\n    at new ExtendableError (C:\\Users\\cod18\\Documents\\PTO\\server\\helpers\\APIError.js:14:11)\n    at new APIError (C:\\Users\\cod18\\Documents\\PTO\\server\\helpers\\APIError.js:30:5)\n    at findById.exec.then (C:\\Users\\cod18\\Documents\\PTO\\server\\user\\user.model.js:86:21)\n    at runCallback (timers.js:705:18)\n    at tryOnImmediate (timers.js:676:5)\n    at processImmediate (timers.js:658:5)\nFrom previous event:\n    at Function.get (C:\\Users\\cod18\\Documents\\PTO\\server\\user\\user.model.js:82:8)\n    at load (C:\\Users\\cod18\\Documents\\PTO\\server\\user\\user.controller.js:8:8)\n    at paramCallback (C:\\Users\\cod18\\Documents\\PTO\\node_modules\\express\\lib\\router\\index.js:404:7)\n    at param (C:\\Users\\cod18\\Documents\\PTO\\node_modules\\express\\lib\\router\\index.js:384:5)\n    at Function.process_params (C:\\Users\\cod18\\Documents\\PTO\\node_modules\\express\\lib\\router\\index.js:410:3)\n    at next (C:\\Users\\cod18\\Documents\\PTO\\node_modules\\express\\lib\\router\\index.js:275:10)\n    at Function.handle (C:\\Users\\cod18\\Documents\\PTO\\node_modules\\express\\lib\\router\\index.js:174:3)\n    at router (C:\\Users\\cod18\\Documents\\PTO\\node_modules\\express\\lib\\router\\index.js:47:12)\n    at Layer.handle [as handle_request] (C:\\Users\\cod18\\Documents\\PTO\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at trim_prefix (C:\\Users\\cod18\\Documents\\PTO\\node_modules\\express\\lib\\router\\index.js:317:13)\n    at C:\\Users\\cod18\\Documents\\PTO\\node_modules\\express\\lib\\router\\index.js:284:7\n    at Function.process_params (C:\\Users\\cod18\\Documents\\PTO\\node_modules\\express\\lib\\router\\index.js:335:12)\n    at next (C:\\Users\\cod18\\Documents\\PTO\\node_modules\\express\\lib\\router\\index.js:275:10)\n    at Function.handle (C:\\Users\\cod18\\Documents\\PTO\\node_modules\\express\\lib\\router\\index.js:174:3)\n    at router (C:\\Users\\cod18\\Documents\\PTO\\node_modules\\express\\lib\\router\\index.js:47:12)\n    at Layer.handle [as handle_request] (C:\\Users\\cod18\\Documents\\PTO\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at trim_prefix (C:\\Users\\cod18\\Documents\\PTO\\node_modules\\express\\lib\\router\\index.js:317:13)\n    at C:\\Users\\cod18\\Documents\\PTO\\node_modules\\express\\lib\\router\\index.js:284:7\n    at Function.process_params (C:\\Users\\cod18\\Documents\\PTO\\node_modules\\express\\lib\\router\\index.js:335:12)\n    at next (C:\\Users\\cod18\\Documents\\PTO\\node_modules\\express\\lib\\router\\index.js:275:10)\n    at C:\\Users\\cod18\\Documents\\PTO\\node_modules\\express-winston\\index.js:353:9\n    at Layer.handle [as handle_request] (C:\\Users\\cod18\\Documents\\PTO\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at trim_prefix (C:\\Users\\cod18\\Documents\\PTO\\node_modules\\express\\lib\\router\\index.js:317:13)\n    at C:\\Users\\cod18\\Documents\\PTO\\node_modules\\express\\lib\\router\\index.js:284:7\n    at Function.process_params (C:\\Users\\cod18\\Documents\\PTO\\node_modules\\express\\lib\\router\\index.js:335:12)"
+    "stack": "APIError: No such user exists!\n    at new ExtendableError (...
 }
 ```
 <hr/>
@@ -180,7 +195,7 @@ Sample Failure Response:
 ```
 {
     "message": "Not Found",
-    "stack": "APIError: No such user exists!\n    at new ExtendableError (C:\\Users\\cod18\\Documents\\PTO\\server\\helpers\\APIError.js:14:11)\n    at new APIError (C:\\Users\\cod18\\Documents\\PTO\\server\\helpers\\APIError.js:30:5)\n    at findById.exec.then (C:\\Users\\cod18\\Documents\\PTO\\server\\user\\user.model.js:86:21)\n    at runCallback (timers.js:705:18)\n    at tryOnImmediate (timers.js:676:5)\n    at processImmediate (timers.js:658:5)\nFrom previous event:\n    at Function.get (C:\\Users\\cod18\\Documents\\PTO\\server\\user\\user.model.js:82:8)\n    at load (C:\\Users\\cod18\\Documents\\PTO\\server\\user\\user.controller.js:8:8)\n    at paramCallback (C:\\Users\\cod18\\Documents\\PTO\\node_modules\\express\\lib\\router\\index.js:404:7)\n    at param (C:\\Users\\cod18\\Documents\\PTO\\node_modules\\express\\lib\\router\\index.js:384:5)\n    at Function.process_params (C:\\Users\\cod18\\Documents\\PTO\\node_modules\\express\\lib\\router\\index.js:410:3)\n    at next (C:\\Users\\cod18\\Documents\\PTO\\node_modules\\express\\lib\\router\\index.js:275:10)\n    at Function.handle (C:\\Users\\cod18\\Documents\\PTO\\node_modules\\express\\lib\\router\\index.js:174:3)\n    at router (C:\\Users\\cod18\\Documents\\PTO\\node_modules\\express\\lib\\router\\index.js:47:12)\n    at Layer.handle [as handle_request] (C:\\Users\\cod18\\Documents\\PTO\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at trim_prefix (C:\\Users\\cod18\\Documents\\PTO\\node_modules\\express\\lib\\router\\index.js:317:13)\n    at C:\\Users\\cod18\\Documents\\PTO\\node_modules\\express\\lib\\router\\index.js:284:7\n    at Function.process_params (C:\\Users\\cod18\\Documents\\PTO\\node_modules\\express\\lib\\router\\index.js:335:12)\n    at next (C:\\Users\\cod18\\Documents\\PTO\\node_modules\\express\\lib\\router\\index.js:275:10)\n    at Function.handle (C:\\Users\\cod18\\Documents\\PTO\\node_modules\\express\\lib\\router\\index.js:174:3)\n    at router (C:\\Users\\cod18\\Documents\\PTO\\node_modules\\express\\lib\\router\\index.js:47:12)\n    at Layer.handle [as handle_request] (C:\\Users\\cod18\\Documents\\PTO\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at trim_prefix (C:\\Users\\cod18\\Documents\\PTO\\node_modules\\express\\lib\\router\\index.js:317:13)\n    at C:\\Users\\cod18\\Documents\\PTO\\node_modules\\express\\lib\\router\\index.js:284:7\n    at Function.process_params (C:\\Users\\cod18\\Documents\\PTO\\node_modules\\express\\lib\\router\\index.js:335:12)\n    at next (C:\\Users\\cod18\\Documents\\PTO\\node_modules\\express\\lib\\router\\index.js:275:10)\n    at C:\\Users\\cod18\\Documents\\PTO\\node_modules\\express-winston\\index.js:353:9\n    at Layer.handle [as handle_request] (C:\\Users\\cod18\\Documents\\PTO\\node_modules\\express\\lib\\router\\layer.js:95:5)\n    at trim_prefix (C:\\Users\\cod18\\Documents\\PTO\\node_modules\\express\\lib\\router\\index.js:317:13)\n    at C:\\Users\\cod18\\Documents\\PTO\\node_modules\\express\\lib\\router\\index.js:284:7\n    at Function.process_params (C:\\Users\\cod18\\Documents\\PTO\\node_modules\\express\\lib\\router\\index.js:335:12)"
+    "stack": "APIError: No such user exists!\n    at new ExtendableError (...
 }
 ```
 <hr/>

@@ -131,11 +131,11 @@ describe('## District APIs', () => {
         .delete(`/api/districts/${district._id}`)
         .expect(httpStatus.OK)
         .then((res) => {
-          expect(res.body.name).to.equal(district.name);
-          expect(res.body.phone).to.equal(district.phone);
-          expect(res.body.city).to.equal(district.city);
-          expect(res.body.address).to.equal(district.address);
-          expect(res.body.state).to.equal(district.state);
+          expect(res.body.deletedDistrict.name).to.equal(district.name);
+          expect(res.body.deletedDistrict.phone).to.equal(district.phone);
+          expect(res.body.deletedDistrict.city).to.equal(district.city);
+          expect(res.body.deletedDistrict.address).to.equal(district.address);
+          expect(res.body.deletedDistrict.state).to.equal(district.state);
           done();
         })
         .catch(done);

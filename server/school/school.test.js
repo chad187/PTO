@@ -148,10 +148,10 @@ describe('## School APIs', () => {
         .delete(`/api/schools/${school._id}`)
         .expect(httpStatus.OK)
         .then((res) => {
-          expect(res.body.name).to.equal(school.name);
-          expect(res.body.phone).to.equal(school.phone);
-          expect(res.body.district).to.equal(school.district);
-          expect(res.body.address).to.equal(school.address);
+          expect(res.body.deletedSchool.name).to.equal(school.name);
+          expect(res.body.deletedSchool.phone).to.equal(school.phone);
+          expect(res.body.deletedSchool.district).to.equal(school.district);
+          expect(res.body.deletedSchool.address).to.equal(school.address);
           done();
         })
         .catch(done);

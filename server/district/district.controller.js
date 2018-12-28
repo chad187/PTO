@@ -88,7 +88,10 @@ function list(req, res, next) {
 function remove(req, res, next) {
   const { district } = req;
   district.remove()
-    .then(deletedDistrict => res.json(deletedDistrict))
+    .then(deletedDistrict => res.json({
+      deleted: true,
+      deletedDistrict
+    }))
     .catch(e => next(e));
 }
 
