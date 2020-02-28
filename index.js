@@ -1,9 +1,11 @@
+const { MongoMemoryServer } = require('mongodb-memory-server');
 const mongoose = require('mongoose');
 const util = require('util');
 
 const debug = require('debug')('express-mongoose-es6-rest-api:index');
 // config should be imported before importing any other file
-const { MongoMemoryServer } = (process.env.NODE_ENV === 'test') ? require('mongodb-memory-server') : {};
+// const { MongoMemoryServer } =
+// (process.env.NODE_ENV === 'test') ? require('mongodb-memory-server') : {};
 const config = require('./config/config');
 const app = require('./config/express');
 
@@ -16,7 +18,7 @@ mongoose.set('useCreateIndex', true);
 const mongoUri = config.mongo.host;
 // console.log(mongoUri);
 
-const realDB = true;
+const realDB = false;
 
 if (realDB) {
 // connect to real mongo db
