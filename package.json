@@ -25,6 +25,12 @@
     "type": "git",
     "url": "https://github.com/chad187/GHS"
   },
+   "husky": { 
+    "hooks": {  
+      "pre-commit": "yarn lint && yarn test", 
+      "pre-push": "yarn test" 
+    } 
+  },
   "keywords": [
     "express",
     "node",
