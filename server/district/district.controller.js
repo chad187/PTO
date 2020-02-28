@@ -9,7 +9,7 @@ function load(req, res, next, id) {
       req.district = district; // eslint-disable-line no-param-reassign
       return next();
     })
-    .catch(e => next(e));
+    .catch((e) => next(e));
 }
 
 /**
@@ -65,7 +65,7 @@ function update(req, res, next) {
     .then((savedDistrict) => {
       res.json(savedDistrict);
     })
-    .catch(e => next(e));
+    .catch((e) => next(e));
 }
 
 /**
@@ -77,8 +77,8 @@ function update(req, res, next) {
 function list(req, res, next) {
   const { limit = 50, skip = 0 } = req.query;
   District.list({ limit, skip })
-    .then(districts => res.json(districts))
-    .catch(e => next(e));
+    .then((districts) => res.json(districts))
+    .catch((e) => next(e));
 }
 
 /**
@@ -88,11 +88,11 @@ function list(req, res, next) {
 function remove(req, res, next) {
   const { district } = req;
   district.remove()
-    .then(deletedDistrict => res.json({
+    .then((deletedDistrict) => res.json({
       deleted: true,
       deletedDistrict
     }))
-    .catch(e => next(e));
+    .catch((e) => next(e));
 }
 
 module.exports = {

@@ -19,7 +19,7 @@ const postDistrict = new Promise((resolve, reject) => {
   });
 });
 
-const postSchool = district => new Promise((resolve, reject) => {
+const postSchool = (district) => new Promise((resolve, reject) => {
   const school = new School(
     {
       name: faker.name.lastName(),
@@ -34,7 +34,7 @@ const postSchool = district => new Promise((resolve, reject) => {
   });
 });
 
-const postUser = result => new Promise((resolve, reject) => {
+const postUser = (result) => new Promise((resolve, reject) => {
   const user = new User({
     username: faker.internet.userName(),
     password: faker.internet.password(),

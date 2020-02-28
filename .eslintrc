@@ -1,6 +1,7 @@
 {
   "rules": {
     "linebreak-style": 0,
+    "max-classes-per-file": ["error", 2],
     "indent": [
       2,
       2,

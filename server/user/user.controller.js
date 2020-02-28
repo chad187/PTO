@@ -10,7 +10,7 @@ function load(req, res, next, id) {
       req.user = user; // eslint-disable-line no-param-reassign
       return next();
     })
-    .catch(e => next(e));
+    .catch((e) => next(e));
 }
 
 /**
@@ -73,7 +73,7 @@ function create(req, res, next) {
         });
       });
     })
-    .catch(err => next(err));
+    .catch((err) => next(err));
 }
 
 /**
@@ -102,15 +102,15 @@ function update(req, res, next) {
           .then((savedUser) => {
             res.json(savedUser);
           })
-          .catch(e => next(e));
+          .catch((e) => next(e));
       })
-      .catch(err => next(err));
+      .catch((err) => next(err));
   } else {
     user.save()
       .then((savedUser) => {
         res.json(savedUser);
       })
-      .catch(e => next(e));
+      .catch((e) => next(e));
   }
 }
 
@@ -123,8 +123,8 @@ function update(req, res, next) {
 function list(req, res, next) {
   const { limit = 50, skip = 0 } = req.query;
   User.list({ limit, skip })
-    .then(users => res.json(users))
-    .catch(e => next(e));
+    .then((users) => res.json(users))
+    .catch((e) => next(e));
 }
 
 /**
@@ -138,7 +138,7 @@ function remove(req, res, next) {
     .then((savedUser) => {
       res.json(savedUser);
     })
-    .catch(e => next(e));
+    .catch((e) => next(e));
 }
 
 module.exports = {

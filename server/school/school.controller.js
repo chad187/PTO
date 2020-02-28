@@ -10,7 +10,7 @@ function load(req, res, next, id) {
       req.school = school; // eslint-disable-line no-param-reassign
       return next();
     })
-    .catch(e => next(e));
+    .catch((e) => next(e));
 }
 
 /**
@@ -42,9 +42,9 @@ function create(req, res, next) {
         .then((savedSchool) => {
           res.json(savedSchool);
         })
-        .catch(e => next(e));
+        .catch((e) => next(e));
     })
-    .catch(e => next(e));
+    .catch((e) => next(e));
 }
 
 /**
@@ -68,15 +68,15 @@ function update(req, res, next) {
           .then((savedSchool) => {
             res.json(savedSchool);
           })
-          .catch(e => next(e));
+          .catch((e) => next(e));
       })
-      .catch(e => next(e));
+      .catch((e) => next(e));
   } else {
     school.save()
       .then((savedSchool) => {
         res.json(savedSchool);
       })
-      .catch(e => next(e));
+      .catch((e) => next(e));
   }
 }
 
@@ -89,8 +89,8 @@ function update(req, res, next) {
 function list(req, res, next) {
   const { limit = 50, skip = 0 } = req.query;
   School.list({ limit, skip })
-    .then(schools => res.json(schools))
-    .catch(e => next(e));
+    .then((schools) => res.json(schools))
+    .catch((e) => next(e));
 }
 
 /**
@@ -100,11 +100,11 @@ function list(req, res, next) {
 function remove(req, res, next) {
   const { school } = req;
   school.remove()
-    .then(deletedSchool => res.json({
+    .then((deletedSchool) => res.json({
       deleted: true,
       deletedSchool
     }))
-    .catch(e => next(e));
+    .catch((e) => next(e));
 }
 
 module.exports = {
