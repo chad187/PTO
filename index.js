@@ -1,3 +1,4 @@
+// const { MongoMemoryServer } = require('mongodb-memory-server');
 const mongoose = require('mongoose');
 const util = require('util');
 
@@ -6,6 +7,7 @@ const debug = require('debug')('express-mongoose-es6-rest-api:index');
 const { MongoMemoryServer } = (process.env.NODE_ENV === 'test') ? require('mongodb-memory-server') : {};
 const config = require('./config/config');
 const app = require('./config/express');
+
 // make bluebird default Promise
 Promise = require('bluebird'); // eslint-disable-line no-global-assign
 
