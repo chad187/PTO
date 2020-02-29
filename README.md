@@ -1,12 +1,14 @@
 
 ## Things you need
-```sh
-[Mongo DB](https://www.mongodb.com/download-center/community)
+[Mongo DB download](https://www.mongodb.com/download-center/community)
+
 Follow step 1 [Mongo setup](https://docs.mongodb.com/bi-connector/master/local-quickstart/)
-[Robo 3t](https://robomongo.org/download)
+
+[Robo 3t download](https://robomongo.org/download)
+
 [robo guide](https://www.youtube.com/watch?v=hEFynL0n2sw)
-[Postman](https://www.postman.com/)
-```
+
+[Postman download](https://www.postman.com/)
 
 ## Getting Started
 
