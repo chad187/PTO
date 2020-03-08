@@ -106,7 +106,7 @@ describe('## District APIs', () => {
         .get('/api/districts')
         .expect(httpStatus.OK)
         .then((res) => {
-          expect(res.body).to.be.an('array');
+          expect(res.body.list).to.be.an('array');
           done();
         })
         .catch(done);
@@ -118,7 +118,7 @@ describe('## District APIs', () => {
         .query({ limit: 10, skip: 1 })
         .expect(httpStatus.OK)
         .then((res) => {
-          expect(res.body).to.be.an('array');
+          expect(res.body.list).to.be.an('array');
           done();
         })
         .catch(done);

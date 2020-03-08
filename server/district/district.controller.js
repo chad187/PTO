@@ -77,7 +77,7 @@ function update(req, res, next) {
 function list(req, res, next) {
   const { limit = 50, skip = 0 } = req.query;
   District.list({ limit, skip })
-    .then((districts) => res.json(districts))
+    .then((districts) => res.json({ list: districts })) // TO DO change this on all endpoints
     .catch((e) => next(e));
 }
 
